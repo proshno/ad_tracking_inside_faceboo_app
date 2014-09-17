@@ -1,4 +1,5 @@
-facebook_ad_tracking
-====================
+Ad tracking using 1x1 clear pixel inside Facebook app
+=====================================================
 
-Facebook ad tracking using 1x1 clear pixel
+This is a sample client-server solution in PHP, Javascript, and HTML to
+track ad using 1x1 clear pixel inside facebook canvas app.

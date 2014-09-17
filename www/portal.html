@@ -1,0 +1,79 @@
+  <head>
+    <link href="portal.css" rel="stylesheet" type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  
+    <script>
+      $(document).ready(function() {
+        $("#adtracker").val(fbtracker);
+
+        $("#info").submit(function() {
+          var emailRegEx = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+          var zipcodeRegEx = /^\d{5}$/;
+          var ret = true;
+
+          if(!emailRegEx.test($("#email").val())) {
+            alert("Invalid email address!");
+            ret = false;
+          }
+          //if($("#zipcode").val().length != 5 || typeof $("#zipcode").val() != 'number') {
+          if(!zipcodeRegEx.test($("#zipcode").val())) {
+            alert("Invalid zip code!");
+            ret = false;
+          }
+          return ret;
+        });
+      });
+
+      function verify_age() {
+        var age = $("#age").val();
+
+        if(age < 21)
+          alert("Yor have to be atleast 21 years old to subscribe!");
+        else {
+          $(".center2").hide();
+          $(".center3").show();
+        }
+      }
+    </script>
+
+    <script>
+      window.onload = function() {
+        var pixel_img = new Image();
+        //use your own pixel server URL
+        pixel_img.src = "http://192.168.0.1/portal/pixel.php?event=CLICK&adtracker=" + fbtracker;
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="center1">
+        <div class="title">Welcome</div>
+
+        <form id="info" action="userconvert.php" method="post">
+          <div class="center2">
+            Age: <input style="width: 60px;" name="age" id="age" />
+            <input type="button" value="Ok!" onclick="verify_age();" />
+          </div>
+
+          <div style="display: none;" class="center3">
+            <table border="0" width="100%" cellpadding="2px;" cellspacing="2px;">
+              <tr>
+                <td width="20%">Email:</td> <td><input style="width: 100%;" name="email" id="email" /></td>
+              </tr>
+              <tr>
+                <td width="20%">Zip:</td> <td><input style="width: 100px;" name="zipcode" id="zipcode" /><td>
+              </tr>
+            </table>
+            <input type="hidden" name="adtracker" id="adtracker" value="DUMMY" />
+            <input style="width: 100%;" type="submit" value="Submit!" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
